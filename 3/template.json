@@ -2,8 +2,6 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sshUserName": { "type": "string" },
-        "sshPassword": { "type": "string" },
         "location": {
             "type": "string"
         },
@@ -54,6 +52,9 @@
         },
         "adminUsername": {
             "type": "string"
+        },
+        "adminPassword": {
+            "type": "secureString"
         },
         "zone": {
             "type": "string"
@@ -167,13 +168,7 @@
                 "osProfile": {
                     "computerName": "[parameters('virtualMachineComputerName')]",
                     "adminUsername": "[parameters('adminUsername')]",
-                    "linuxConfiguration": {
-                        "disablePasswordAuthentication": false
-                    },
-		    "linuxOperatingSystemProfile": {
-			    "username": "[parameters('sshUserName')]",
-			    "password": "[parameters('sshPassword')]"
-		    }
+                    "adminPassword": "[parameters('adminPassword')]"
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {

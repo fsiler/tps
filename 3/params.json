@@ -2,13 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-	"sshUserName": { "value": "tpstest" },
-        "sshPassword": { "value": "tpsTPS123456" },
         "location": {
             "value": "eastus"
         },
         "networkInterfaceName": {
-            "value": "tpstest667"
+            "value": "tpstest996"
         },
         "networkSecurityGroupName": {
             "value": "tpstest-nsg"
@@ -34,7 +32,7 @@
             "value": "default"
         },
         "virtualNetworkName": {
-            "value": "tpstest-vnet"
+            "value": "tpstest_group-vnet"
         },
         "addressPrefixes": {
             "value": [
@@ -67,7 +65,7 @@
             "value": "tpstest"
         },
         "virtualMachineRG": {
-            "value": "tpstest"
+            "value": "tpstest_group"
         },
         "osDiskType": {
             "value": "StandardSSD_LRS"
@@ -76,7 +74,10 @@
             "value": "Standard_D2_v3"
         },
         "adminUsername": {
-            "value": "fms"
+            "value": "tps"
+        },
+        "adminPassword": {
+            "value": "tpsTPS123456"
         },
         "zone": {
             "value": "1"
