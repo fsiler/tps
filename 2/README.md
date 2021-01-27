@@ -1,7 +1,7 @@
 # Prompt
 Create a script to start/stop Azure VM.  You can use whichever scripting language you want.
 
-#Assumptions
+# Assumptions
 I assumed that I would have a machine `tpstest` in RG `tpstest_group`.  Of course, this could be parameterized.
 
 # Solution
