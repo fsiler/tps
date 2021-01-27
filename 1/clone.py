@@ -23,15 +23,17 @@ except KeyError:
   auth = HTTPBasicAuth('user', token)
   
 
-def dumpjson(relurl, debug=True):
+
+def dumpjson(relurl, debug=False):
   """helper function to get json from the server"""
   r = requests.get(server + relurl, auth=auth)
   j = json.loads(r.content)
-#  debug and print(json.dumps(j, indent=2))
+  debug and print(json.dumps(j, indent=2))
   return j
 
-def selectmenu(json):
+def selectmenu(relurl, debug=False):
   """helper function to either return the only item or ask the user for a selection"""
+  json = dumpjson(relurl, debug=debug)
   if json["count"] < 1:
     print("sorry, no items, quitting")
     sys.exit()
@@ -50,24 +52,23 @@ def selectmenu(json):
      sys.exit()
 
 
+
 if __name__=="__main__":
   # list projects
   # if only one project, proceed; otherwise ask
   print("PROJECTS")
-  projects = dumpjson("/_apis/projects", debug=False)
-  projid = selectmenu(projects)
+  projid = selectmenu("/_apis/projects", debug=False)
   print("using project id %s" % (projid))
 
   # list build definitions
   # if only one def, proceed; otherwise ask
   print("BUILD DEFINITIONS")
-  defs = dumpjson("/%s/_apis/build/definitions/" % (projid))
-  defid = selectmenu(defs)
+  defid = selectmenu("/%s/_apis/build/definitions/" % (projid))
 
   d = dumpjson("/%s/_apis/build/definitions/%d" % (projid, defid))  # i would like to call this variable "def", but that's a keyword in python
+  rev = d['revision']
   # https://www.danielemaggio.eu/devops/ado-rest-api-clone-build-release-def/
   # drop unnecessary keys
-  rev = d['revision']
   for i in ["_links", "authoredBy", "queue._links", "queue.url", "queue.id", "url", "uri", "revision", "createdDate", "id"]:
     d.pop(i, None)
   # rename our new project
